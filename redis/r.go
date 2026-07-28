@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"time"
+	"os"
 
 	goredis "github.com/redis/go-redis/v9"
 )
@@ -14,10 +15,23 @@ var (
 )
 
 func Connect() error {
-	Client = goredis.NewClient(&goredis.Options{
-		Addr: "127.0.0.1:6379",
-		DB:   0,
-	})
+	// Cek apakah variabel REDIS_URL ada di environment (dari Railway)
+	redisAddr := os.Getenv("REDIS_URL")
+	
+	if redisAddr != "" {
+		// Jika dijalankan di Railway, gunakan URL lengkap dari REDIS_URL
+		opt, err := goredis.ParseURL(redisAddr)
+		if err != nil {
+			return err
+		}
+		Client = goredis.NewClient(opt)
+	} else {
+		// Jika dijalankan di laptop (lokal), gunakan localhost
+		Client = goredis.NewClient(&goredis.Options{
+			Addr: "127.0.0.1:6379",
+			DB:   0,
+		})
+	}
 
 	_, err := Client.Ping(Ctx).Result()
 	return err
