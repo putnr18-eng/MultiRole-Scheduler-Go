@@ -22,30 +22,7 @@ import (
 	"github.com/patrickmn/go-cache"
 )
 
-// func SecurityHeaders() gin.HandlerFunc {
-// 	return func(c *gin.Context) {
-// 		c.Header("X-Frame-Options", "DENY")
-// 		c.Header("X-Content-Type-Options", "nosniff")
-// 		c.Header("Referrer-Policy", "strict-origin-when-cross-origin")
-// 		c.Header("Permissions-Policy", "geolocation=(), microphone=(), camera=()")
-// 		c.Header("X-XSS-Protection", "0")
 
-// 		// PERBAIKAN CSP: Diizinkan CDN Tailwind, FontAwesome, dan Google Fonts agar UI tidak hancur
-// 		cspPolicy := "default-src 'self'; " +
-// 			"script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.tailwindcss.com; " +
-// 			"style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.googleapis.com; " +
-// 			"font-src 'self' https://cdnjs.cloudflare.com https://fonts.gstatic.com; " +
-// 			"img-src 'self' data: https:; " +
-// 			"connect-src 'self'; " +
-// 			"object-src 'none'; " +
-// 			"frame-ancestors 'none'; " +
-// 			"base-uri 'self'; " +
-// 			"form-action 'self'"
-
-// 		c.Header("Content-Security-Policy", cspPolicy)
-// 		c.Next()
-// 	}
-// }
 
 func main() {
 	err := godotenv.Load()
