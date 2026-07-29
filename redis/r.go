@@ -35,7 +35,7 @@ func RateLimit(key string) (bool, error) {
 
 	if Client == nil {
         fmt.Println("Warning: Redis Client belum terkoneksi, RateLimit dilewati.")
-        return true, nil // Loloskan request jika redis mati agar tidak crash
+        return true, nil 
     }
 	count, err := Client.Incr(Ctx, key).Result()
 	if err != nil {
